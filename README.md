@@ -15,7 +15,7 @@ $ npm install function.prototype
 ### isGenerator
 
 ```js
-var fpt = require('./index');
+var fpt = require('function.prototype');
 
 fpt.isGenerator(function * () {}); // true
 fpt.isGenerator(function () {}); // false
@@ -31,7 +31,7 @@ function () {}.isGenerator(); // false
 ### promisify
 
 ```js
-var fpt = require('./index');
+var fpt = require('function.prototype');
 
 fpt.promisify(function * (key) { return key }).call(null, 'key').then(function(err, key) {});
 fpt.promisify(function (key, cb) { cb(null, key) }).call(null, 'key').then(function(err, key) {});
