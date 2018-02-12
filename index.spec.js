@@ -1,7 +1,11 @@
 'use strict';
 
 var fpt = require('./index');
-var assert = require('chai').assert;
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
+
+chai.use(chaiAsPromised);
+var assert = chai.assert;
 
 describe('function.prototype', function () {
 
@@ -11,15 +15,10 @@ describe('function.prototype', function () {
     });
 
     it('promisify', function () {
-        fpt.promisify(function * (key) { return key }).call(null, 'key').then(function(err, key) {
-            assert.equal(null == err, true);
-            assert.equal('key' == key, true);
-        });
-
-        fpt.promisify(function (key, cb) { cb(null, key) }).call(null, 'key').then(function(err, key) {
-            assert.equal(null == err, true);
-            assert.equal('key' == key, true);
-        });
+        return Promise.all([
+            assert.eventually.equal(fpt.promisify(function * (key) { return key }).call(null, 'key'), 'key'),
+            assert.eventually.equal(fpt.promisify(function (key, cb) { cb(null, key) }).call(null, 'key'), 'key')
+        ]);
     });
 
 });

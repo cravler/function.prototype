@@ -33,15 +33,15 @@ function () {}.isGenerator(); // false
 ```js
 var fpt = require('function.prototype');
 
-fpt.promisify(function * (key) { return key }).call(null, 'key').then(function(err, key) {});
-fpt.promisify(function (key, cb) { cb(null, key) }).call(null, 'key').then(function(err, key) {});
+fpt.promisify(function * (key) { return key }).call(null, 'key').then(function(key) {}, function(err) {});
+fpt.promisify(function (key, cb) { cb(null, key) }).call(null, 'key').then(function(key) {}, function(err) {});
 
 // or
 
 fpt.promisify.shim();
 
-function * (key) { return key }.promisify().call(null, 'key').then(function(err, key) {});
-function (key, cb) { cb(null, key) }.promisify().call(null, 'key').then(function(err, key) {});
+function * (key) { return key }.promisify().call(null, 'key').then(function(key) {}, function(err) {});
+function (key, cb) { cb(null, key) }.promisify().call(null, 'key').then(function(key) {}, function(err) {});
 ```
 
 ## License
